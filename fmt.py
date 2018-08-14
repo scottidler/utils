@@ -42,11 +42,11 @@ def _create_format(name):
 _dbg_regex = re.compile(r'p?dbg\s*\((.+?)\)$')
 
 def _dbg(args, kwargs, frame, logger=None):
-    klass = frame.f_locals.get('self', None)
+    instance = frame.f_locals.get('self', None)
     string = 'DBG: '
-    if klass:
-        string += klass.__class__.__name__ + '.'
-    string += frame.f_code.co_name + ': '
+    if instance:
+        string += instance.__class__.__name__ + '.'
+    string += frame.f_code.co_name + '(): '
     if args or kwargs:
         context = inspect.getframeinfo(frame).code_context
         callsite = ''.join([line.strip() for line in context])
