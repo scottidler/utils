@@ -2,7 +2,11 @@
 git utilities
 '''
 
-from .shell import call
+from .shell import call, cd
+
+def reporoot(path='.'):
+    with cd(path):
+        return call('git rev-parse --show-toplevel')[1].strip()
 
 def subs2shas(path='.'):
     lines = call('cd %s && git submodule' % path)[1].strip().split('\n')
