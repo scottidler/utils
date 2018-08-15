@@ -5,6 +5,7 @@
 collection of isinstance funcs
 '''
 
+from collections import Iterable
 from types import ModuleType, FunctionType, GeneratorType
 
 def isstr(obj):
@@ -63,6 +64,12 @@ def istuple(obj):
     istuple
     '''
     return isinstance(obj, tuple)
+
+def isiterable(obj):
+    '''
+    isiterable
+    '''
+    return isinstance(obj, Iterable)
 
 def isdict(obj):
     '''
