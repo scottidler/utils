@@ -36,7 +36,7 @@ def load_ini_or_cfg(filename):
             sections[section] = options
     return sections
 
-def load_config(*filenames, must_exist=False):
+def load_config(*filenames, must_exist=False, use_attrdict=True):
     cfg = {}
     errors = []
     for filename in [os.path.expanduser(filename) for filename in filenames if filename]:
@@ -53,6 +53,4 @@ def load_config(*filenames, must_exist=False):
                     raise ConfigLoadError(filename, errors)
         elif must_exist:
             raise FileNotFoundError(filename)
-        else:
-            dbg(filename)
     return cfg
