@@ -4,6 +4,7 @@
 format: here there be baby dragons!
 '''
 
+import os
 import re
 import ast
 import inspect
@@ -42,8 +43,13 @@ def _create_format(name):
 _dbg_regex = re.compile(r'p?dbg\s*\((.+?)\)$')
 
 def _dbg(args, kwargs, frame, logger=None):
+    caller = inspect.getframeinfo(frame)
+    lineno = caller.lineno
+    filename = caller.filename
+    prefix = os.path.commonprefix([os.getcwd(), filename])
+    filename = filename[len(prefix):]
     instance = frame.f_locals.get('self', None)
-    string = 'DBG: '
+    string = fmt('DBG:{filename}:{lineno} ')
     if instance:
         string += instance.__class__.__name__ + '.'
     string += frame.f_code.co_name + '(): '
