@@ -5,15 +5,7 @@
 output
 '''
 
-try:
-    from ruamel import yaml
-    from urlpath import URL
-    from attrdict import AttrDict
-    from packaging.version import parse as version_parse
-except ImportError as ie:
-    print(ie)
-    print('perhaps you need to install cli/requirements.txt via pip3')
-
+from ruamel import yaml
 
 def str_presenter(dumper, data):
     str_tag = 'tag:yaml.org,2002:str'
