@@ -36,7 +36,7 @@ def load_ini_or_cfg(filename):
             sections[section] = options
     return sections
 
-def load_config(*filenames, must_exist=False, use_attrdict=True):
+def load_config(*filenames, must_exist=False):
     cfg = {}
     errors = []
     for filename in [os.path.expanduser(filename) for filename in filenames if filename]:
@@ -49,7 +49,6 @@ def load_config(*filenames, must_exist=False, use_attrdict=True):
                     cfg.update(load_yaml_or_json(filename))
                 except Exception as ex2:
                     errors += traceback.format_exc()
-                    dbg(errors)
                     raise ConfigLoadError(filename, errors)
         elif must_exist:
             raise FileNotFoundError(filename)
