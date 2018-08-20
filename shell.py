@@ -83,7 +83,7 @@ def rglob(pattern):
             matches.append(os.path.join(r, f))
     return matches
 
-def globs(*paths, recursive=False):
+def globs(recursive=False, *paths):
     '''
     returns a set of all paths glob-matched
     '''
