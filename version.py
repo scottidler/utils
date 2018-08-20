@@ -3,7 +3,7 @@
 
 import os
 
-from cr.utils.shell import call
+from .shell import call
 
 def get_version():
     try:
