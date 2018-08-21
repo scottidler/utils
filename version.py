@@ -3,19 +3,19 @@
 
 import os
 
-from .shell import call
+from .git import reporoot, describe
 
 def get_version():
     try:
-        reporoot = call('git rev-parse --show-toplevel')[1].strip()
         try:
-            value = open(os.path.join(reporoot, 'VERSION')).read().strip()
+            value = open(os.path.join(reporoot(), 'VERSION')).read().strip()
             return value
         except:
-            value = call('git describe --abbrev=7')[1].strip()
+            value = describe()
     except:
         value ='UNKNOWN'
-    return value
+    version, *suffix = value.split('-')
+    return version.replace('v', '') + '.dev{0}+{1}'.format(*suffix) if suffix else ''
 
 class Version(str):
     __instance = None
