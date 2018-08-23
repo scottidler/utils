@@ -12,7 +12,6 @@ def get_version(path='.'):
         try:
             with cd(path):
                 value = open('VERSION').read().strip()
-            return value
         except:
             value = describe()
     except:
