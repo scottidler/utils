@@ -3,12 +3,15 @@
 
 import os
 
-from .git import reporoot, describe
+from .git import describe
+from .shell import cd
+from .fmt import fmt, pfmt, dbg
 
-def get_version():
+def get_version(path='.'):
     try:
         try:
-            value = open(os.path.join(reporoot(), 'VERSION')).read().strip()
+            with cd(path):
+                value = open('VERSION').read().strip()
             return value
         except:
             value = describe()
