@@ -16,8 +16,8 @@ def get_version(path='.'):
             value = describe()
     except:
         value ='UNKNOWN'
-    version, *suffix = value.split('-')
-    return version.replace('v', '') + '.dev{0}+{1}'.format(*suffix) if suffix else ''
+    parts = value.split('-')
+    return parts[0].replace('v', '') + '.dev{0}+{1}'.format(*parts[1:]) if parts[1:] else ''
 
 class Version(str):
     __instance = None
