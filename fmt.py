@@ -85,7 +85,7 @@ def _fmt(string, args, kwargs, frame, do_print=False):
         gl.update(kwargs)
         if frame.f_code.co_name == '<listcomp>':
             gl.update(frame.f_back.f_locals)
-        result= string.format(*args, **{k:_fmt_dict(v) for k,v in gl.items()})
+        result = string.format(*args, **{k:_fmt_dict(v) for k,v in gl.items()})
     except KeyError as ke:
         raise FmtKeyError(gl)
     if do_print:
