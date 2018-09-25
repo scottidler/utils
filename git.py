@@ -10,7 +10,7 @@ def reporoot(path='.'):
 
 def describe(path='.'):
     with cd(path):
-        return call('git describe --abbrev-7')[1].strip()
+        return call('git describe --abbrev=7')[1].strip()
 
 def subs2shas(path='.'):
     lines = call('cd %s && git submodule' % path)[1].strip().split('\n')
