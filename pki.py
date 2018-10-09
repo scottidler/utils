@@ -16,24 +16,10 @@ from cryptography.hazmat.backends.openssl.x509 import _CertificateSigningRequest
 from .fmt import *
 import tarfile
 
-class KeyExistError(Exception):
-    def __init__(self, keyfile):
-        msg = fmt('key file {keyfile} does not exist')
-        super(KeyExistError, self).__init__(msg)
-
-class CsrExistError(Exception):
-    def __init__(self, csrfile):
-        msg = fmt('csr file {csrfile} does not exist')
-        super(CsrExistError, self).__init__(msg)
-
-class CertNameDecomposeError(Exception):
-    def __init__(self, pattern, cert_name):
-        msg = fmt('"{cert_name}" could not be decomposed with pattern "{pattern}"')
-        super(CertNameDecomposeError, self).__init__(msg)
-
-class CreateModhashRequiresKeyOrCsr(Exception):
+class CreateModhashRequiresKeyOrCsrError(Exception):
     def __init__(self, obj):
         msg = fmt('_create_modhash requires key or csr but got obj={obj}')
+        super(CreateModhashRequiresKeyOrCsrError, self).__init__(msg)
 
 ENCODING = dict(
     DER=serialization.Encoding.DER,
@@ -91,7 +77,7 @@ def _create_modhash(obj):
     elif isinstance(obj, _CertificateSigningRequest):
         modulus_int = obj.public_key().public_numbers().n
     else:
-        raise CreateModhashRequiresKeyOrCsr(obj)
+        raise CreateModhashRequiresKeyOrCsrError(obj)
     modulus_hex = hex(modulus_int).rstrip('L').lstrip('0x').upper()
     modulus_bytes = fmt('Modulus={modulus_hex}\n').encode('utf-8')
     md5 = hashlib.md5()
