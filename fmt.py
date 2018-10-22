@@ -7,6 +7,7 @@ format: here there be baby dragons!
 import os
 import re
 import ast
+import sys
 import inspect
 from pprint import pprint, pformat
 
@@ -39,7 +40,7 @@ def _create_format(name):
         return str(ast.literal_eval(name))
     except:
         pass
-    return name+'="{'+name+'}"'
+    return name+'({'+name+'_type})="{'+name+'}"'
 
 _dbg_regex = re.compile(r'p?dbg\s*\((.+?)\)$')
 
@@ -59,9 +60,13 @@ def _dbg(args, kwargs, frame, logger=None):
         callsite = ''.join([line.strip() for line in context])
         match = _dbg_regex.search(callsite)
         if match:
-            params = [param.strip() for param in match.group(1).split(',')]
+            params = [param.strip() for param in match.group(1).split(',') if '=' not in param]
         names = params[:len(args)] + list(kwargs.keys())
         string += ' '.join([_create_format(name) for name in names])
+        arg_types = {name+'_type':type(arg) for name, arg in zip(names,args)}
+        kwarg_types = {key+'_type':type(value) for key, value in kwargs.items()}
+        kwargs.update(arg_types)
+        kwargs.update(kwarg_types)
     else:
         string += 'locals:\n{locals}'
     result = _fmt(string, args, kwargs, frame, do_print=logger is None)
