@@ -11,6 +11,8 @@ import sys
 import inspect
 from pprint import pprint, pformat
 
+from .isinstance import *
+
 __all__ = [
     'dbg',
     'fmt',
@@ -75,7 +77,7 @@ def _dbg(args, kwargs, frame, logger=None):
     return result
 
 def _fmt_dict(obj):
-    if isinstance(obj, dict):
+    if isdict(obj) or islist(obj):
         return pformat(obj)
     return str(obj)
 
