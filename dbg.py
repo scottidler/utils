@@ -1,41 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-'''
-format: here there be baby dragons!
-'''
 
 import os
 import re
 import ast
-import sys
 import inspect
-from pprint import pprint, pformat
+from pprint import pformat, pprint
 
 from .isinstance import *
 
 __all__ = [
     'dbg',
-    'fmt',
-    'pfmt',
 ]
-
-class FmtKeyError(Exception):
-    def __init__(self, keys):
-        msg = 'fmt error; key not found in keys: ' + ' '.join(keys)
-        super(FmtKeyError, self).__init__(msg)
 
 def dbg(*args, **kwargs):
     logger = kwargs.pop('logger', None)
     frame = inspect.currentframe().f_back
     return _dbg(args, kwargs, frame, logger=logger)
-
-def fmt(string, *args, **kwargs):
-    frame = inspect.currentframe().f_back
-    return _fmt(string, args, kwargs, frame)
-
-def pfmt(string, *args, **kwargs):
-    frame = inspect.currentframe().f_back
-    return _fmt(string, args, kwargs, frame, do_print=True)
 
 def _create_format(name):
     try:
@@ -53,7 +34,7 @@ def _dbg(args, kwargs, frame, logger=None):
     prefix = os.path.commonprefix([os.getcwd(), filename])
     filename = filename[len(prefix):]
     instance = frame.f_locals.get('self', None)
-    string = fmt('DBG:{filename}:{lineno} ')
+    string = f'DBG:{filename}:{lineno} '
     if instance:
         string += instance.__class__.__name__ + '.'
     string += frame.f_code.co_name + '(): '
