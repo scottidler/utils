@@ -13,12 +13,11 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.backends.openssl.rsa import _RSAPrivateKey
 from cryptography.hazmat.backends.openssl.x509 import _CertificateSigningRequest
 
-from .fmt import *
 import tarfile
 
 class CreateModhashRequiresKeyOrCsrError(Exception):
     def __init__(self, obj):
-        msg = fmt('_create_modhash requires key or csr but got obj={obj}')
+        msg = f'_create_modhash requires key or csr but got obj={obj}'
         super(CreateModhashRequiresKeyOrCsrError, self).__init__(msg)
 
 ENCODING = dict(
@@ -79,7 +78,7 @@ def _create_modhash(obj):
     else:
         raise CreateModhashRequiresKeyOrCsrError(obj)
     modulus_hex = hex(modulus_int).rstrip('L').lstrip('0x').upper()
-    modulus_bytes = fmt('Modulus={modulus_hex}\n').encode('utf-8')
+    modulus_bytes = f'Modulus={modulus_hex}\n'.encode('utf-8')
     md5 = hashlib.md5()
     md5.update(modulus_bytes)
     return md5.hexdigest()

@@ -11,13 +11,12 @@ import configparser
 from ruamel import yaml
 from argparse import Action
 
-from .fmt import *
 from .git import reporoot
 from .isinstance import isiterable
 
 class ConfigLoadError(Exception):
     def __init__(self, filename, errors):
-        msg = fmt('config load error: filename={filename} errors={errors}')
+        msg = f'config load error: filename={filename} errors={errors}'
         super(ConfigLoadError, self).__init__(msg)
 
 def load_yaml_or_json(filename):

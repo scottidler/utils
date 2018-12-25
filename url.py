@@ -6,16 +6,15 @@ url
 import socket
 
 from urlpath import URL
-from .fmt import *
 
 class UrlDnsError(Exception):
     def __init__(self, url, errors=None):
-        msg = fmt('url dns resoltuion with {url}')
+        msg = f'url dns resoltuion with {url}'
         super(UrlDnsError, self).__init__(msg)
 
 class UrlConnectError(Exception):
     def __init__(self, url, errors=None):
-        msg = fmt('url connect error {url}')
+        msg = f'url connect error {url}'
         super(UrlConnectError, self).__init__(msg)
 
 def validate(url, throw=False):

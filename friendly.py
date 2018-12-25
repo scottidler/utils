@@ -8,8 +8,6 @@ human friendly functions
 import re
 import datetime
 
-from .fmt import *
-
 WEEKS = '(?P<weeks>[0-9]+w)?'
 DAYS = '(?P<days>[0-9]+d)?'
 HOURS = '(?P<hours>[0-9]+h)?'

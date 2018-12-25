@@ -13,19 +13,18 @@ from datetime import datetime
 from urllib.parse import urlparse
 from fnmatch import fnmatch
 
-from .fmt import *
 from .newline import windows2unix
 from .dictionary import merge
 from .singleton import Singleton
 
 class RaiseIfError(Exception):
     def __init__(self, call):
-        message = fmt('raise if error with {call}')
+        message = f'raise if error with {call}'
         super(RaiseIfError, self).__init__(message)
 
 class ConflictingProxyEnv(Exception):
     def __init__(self, key, values):
-        message = fmt('too many proxy values={values} for key={key} in env')
+        message = f'too many proxy values={values} for key={key} in env'
         super(ConflictingProxyEnv, self).__init__(message)
 
 def get_proxy_value_from_env(key):
@@ -127,7 +126,7 @@ class AsyncRequests(Singleton):
                     delta = datetime.now() - start
                     if repeat_delta and delta < repeat_delta:
                         repeat += 1
-                        pfmt('{delta} < {repeat_delta}; repeat {repeat}')
+                        print(f'{delta} < {repeat_delta}; repeat {repeat}')
                         await asyncio.sleep(repeat_wait)
                         continue
                 if raise_if and raise_if(call):

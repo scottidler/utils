@@ -5,7 +5,6 @@ import os
 
 from .git import describe
 from .shell import cd
-from .fmt import *
 
 def get_version(path='.'):
     try:
