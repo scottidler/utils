@@ -7,14 +7,12 @@ import aiohttp
 import asyncio
 
 from json import dumps as json_dumps
-from pprint import pprint, pformat
 from attrdict import AttrDict
 from datetime import datetime
 from urllib.parse import urlparse
 from fnmatch import fnmatch
 
 from .newline import windows2unix
-from .dictionary import merge
 from .singleton import Singleton
 
 class RaiseIfError(Exception):

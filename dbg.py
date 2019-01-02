@@ -5,7 +5,7 @@ import os
 import re
 import ast
 import inspect
-from pprint import pformat, pprint
+from pprint import pformat
 
 from .isinstance import *
 

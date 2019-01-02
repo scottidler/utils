@@ -9,10 +9,6 @@ import os
 import traceback
 import configparser
 from ruamel import yaml
-from argparse import Action
-
-from .git import reporoot
-from .isinstance import isiterable
 
 class ConfigLoadError(Exception):
     def __init__(self, filename, errors):

@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import re
-import glob
 import fnmatch
 
 def regexes(items, includes=None, excludes=None):
