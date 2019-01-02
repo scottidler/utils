@@ -29,9 +29,7 @@ _dbg_regex = re.compile(r'p?dbg\s*\((.+?)\)$')
 
 def _dbg(args, kwargs, frame, logger=None):
     caller = inspect.getframeinfo(frame)
-    prefix = os.path.commonprefix([os.getcwd(), caller.filename])
-    filename = caller.filename[len(prefix):]
-    string = f'DBG:{filename}:{caller.lineno} '
+    string = f'DBG:{os.path.relpath(caller.filename)}:{caller.lineno} '
     instance = frame.f_locals.get('self', None)
     if instance:
         string += instance.__class__.__name__ + '.'
