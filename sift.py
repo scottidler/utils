@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import fnmatch
 
 def regexes(items, includes=None, excludes=None):
@@ -12,7 +13,7 @@ def fnmatches(items, includes=None, excludes=None):
     return _sift(items, includes, excludes, _include_fnmatch, _exclude_fnmatch)
 
 def globs(dirpath, includes=None, excludes=None):
-    items = os.path.listdir(dirpath)
+    items = os.listdir(dirpath)
     return fnmatches(items, includes, excludes, _include_fnmatch, _exclude_fnmatch)
 
 def _sift(items, includes, excludes, include_fn, exclude_fn):
